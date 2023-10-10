@@ -51,89 +51,23 @@ export class MenuComponent implements OnInit {
     },
     {
       id: '3',
-      titre: 'Clients',
+      titre: 'Reservations',
       icon: 'fa-solid fa-users-line',
       url: '',
       sousMenus: [
         {
           id: '31',
-          titre: 'Clients',
+          titre: 'Nouveau',
           icon: 'fa-solid fa-users',
           url: 'clients'
         },
         {
           id: '32',
-          titre: 'Commande clients',
+          titre: 'Details',
           icon: 'fa-solid fa-basket-shopping',
-          url: 'commande-client'
+          url: 'reservation'
         }
       ]
-    },
-    {
-      id: '4',
-      titre: 'Fournisseurs',
-      icon: 'fa-solid fa-users-between-lines',
-      url: '',
-      sousMenus: [
-        {
-          id: '41',
-          titre: 'Fournisseurs',
-          icon: 'fa-solid fa-users',
-          url: 'fournisseurs'
-        },
-        {
-          id: '42',
-          titre: 'Commande fournisseur',
-          icon: 'fa-solid fa-truck',
-          url: 'commande-fournisseur'
-        }
-      ]
-    },
-    {
-      id: '5',
-      titre: 'Ventes',
-      icon: 'fa-solid fa-users-between-lines',
-      url: '',
-      sousMenus: [
-        {
-          id: '51',
-          titre: 'Vente',
-          icon: 'fa-solid fa-users',
-          url: 'vente'
-        },
-        {
-          id: '52',
-          titre: 'Historique',
-          icon: 'fa-solid fa-truck',
-          url: 'liste-vente'
-        }
-      ]
-    },
-    {
-      id: '6',
-      titre: 'Parametrages',
-      icon: 'fa-solid fa-screwdriver-wrench',
-      url: '',
-      sousMenus: [
-        {
-          id: '61',
-          titre: 'Categories',
-          icon: 'fa-solid fa-gear',
-          url: 'categories'
-        },
-        {
-          id: '62',
-          titre: 'Utilisateurs',
-          icon: 'fa-solid fa-users-gear',
-          url: 'utilisateurs'
-        }
-      ]
-    },
-    {
-      id: '7',
-      titre: 'Deconnection',
-      icon: 'fa-solid fa-right-from-bracket fa-rotate-180',
-      url: 'logout'
     }
   ];
 
@@ -153,6 +87,10 @@ export class MenuComponent implements OnInit {
     menu.active = true;
     this.router.navigate([menu.url]);
     this.lastSelectedMenu = menu;
+  }
+
+  logoutApp() {
+    //this.userService.logout();
   }
 
 }

@@ -1,3 +1,167 @@
 /* You can add global styles to this file, and also import other style files */
 $blue-color: blue;
 $black-color: black;
+
+.custum-border {
+    border: 2px solid $black-color !important;
+    border-radius: 5px !important;
+}
+
+body {
+    background-color: darkgrey;
+    overflow-x: hidden;
+}
+
+.main-container {
+    margin: 30px;
+}
+
+.dashbord {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.min-height-600 {
+    min-height: 600px !important;
+}
+
+.no-flex-wrap {
+    flex-wrap: inherit !important;
+}
+
+.min-height-50 {
+    min-height: 30px !important;
+}
+
+.max-height-30 {
+    max-height: 60px !important;
+}
+
+.min-height-440 {
+    min-height: 500px !important;
+}
+
+.max-height-440 {
+    min-height: 440px !important;
+    overflow-y: scroll !important;
+}
+
+.max-height-400 {
+    min-height: 400px !important;
+    overflow-y: scroll !important;
+}
+
+.backgound-grey {
+    background-color: darkgrey !important;
+}
+
+.custom-tooltip {
+    --bs-tooltip-bg: var(--bs-primary);
+}
+
+div {
+    border: 0 !important;
+}
+
+.border-right {
+    border-right: 2px solid $black-color !important;
+}
+
+.color-white {
+    color: white !important;
+}
+
+.small-text {
+    font-size: small !important;
+}
+
+.medium-text {
+    font-size: medium !important;
+}
+
+.center-y {
+    margin: auto !important;
+    padding-top: 3px !important;
+}
+
+.blue-color {
+    color: rgba(2, 64, 114, 0.904);
+}
+
+.btn-link {
+    text-decoration: none !important;
+}
+
+.btn-link:hover {
+    text-decoration: underline !important;
+}
+
+.scroll-body-max-height-130 {
+    max-height: 130px !important;
+    overflow-y: scroll !important;
+    overflow-x: hidden;
+}
+
+.hidden {
+    display: none;
+}
+
+.laoder-overlay {
+    position: absolute;
+    width: 100%;
+    z-index: 500000;
+    top: 0;
+}
+
+.super-top {
+    z-index: 50000;
+}
+
+.laoder {
+    height: 18px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    background-color: #FFF;
+}
+
+.laoder::before {
+    display: block;
+    position: absolute;
+    content: "";
+    left: -200px;
+    width: 200px;
+    height: 10px;
+    background-color: #007BFF;
+    animation: laoding 2s linear infinite;
+}
+
+@keyframes laoding {
+    from {
+        left: -200;
+        width: 30%;
+    }
+
+    50% {
+        width: 30%;
+    }
+
+    70% {
+        width: 70%;
+    }
+
+    80% {
+        left: 50%;
+    }
+
+    95% {
+        left: 120%;
+    }
+
+    to {
+        left: 100%;
+    }
+
+}

@@ -1,1 +1,5 @@
-<p>laoder works!</p>
+<div [class.hidden]="!show">
+    <div class="laoder-overlay">
+        <div *ngIf="show" class="laoder"></div>
+    </div>
+</div>

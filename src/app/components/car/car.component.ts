@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Voiture } from './voiture';
+import { Voiture } from 'src/app/models/voiture';
 
 @Component({
   selector: 'app-car',
@@ -11,20 +11,43 @@ export class CarComponent {
     {
       id: 1,
       longueure: 360,
-      siege: 32,
-      type: 'sprinter'
+      chaise: 32,
+      type: 'sprinter',
+      placelibre: 20,
+      placereserver: 12,
+      places: [
+      ],
+      trajet: "Antananarivo - Fianarantsoa",
+      depart: "30 oct 2023 18h:30",
+      arriver: "02 oct 2023 18h:30"
     },
     {
       id: 2,
       longueure: 360,
-      siege: 32,
-      type: 'crafter'
+      chaise: 32,
+      type: 'crafter',
+      placelibre: 25,
+      placereserver: 7,
+      places: [
+
+      ],
+      trajet: "Antananarivo - Antsirabe",
+      depart: "30 oct 2023 18h:30",
+      arriver: "02 oct 2023 18h:30"
     },
     {
       id: 3,
       longueure: 260,
-      siege: 27,
-      type: 'Mersedess'
+      chaise: 27,
+      type: 'Mersedess',
+      placelibre: 5,
+      placereserver: 22,
+      places: [
+
+      ],
+      trajet: "Antananarivo - Morondava",
+      depart: "30 oct 2023 18h:30",
+      arriver: "02 oct 2023 18h:30"
     }
   ]
 

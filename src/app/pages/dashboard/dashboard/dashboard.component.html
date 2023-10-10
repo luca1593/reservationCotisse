@@ -1,1 +1,30 @@
-<p>dashboard works!</p>
+<div class="dashbord no-border">
+    <div class="row min-height-600 no-flex-wrap">
+        <div class="card col-2 me-2 px-1 py-3">
+            <h5 class="mx-3">Cotisse v1</h5>
+            <app-menu></app-menu>
+        </div>
+        <div class="card col-10 px-0 backgound-grey">
+            <div class="col d-flex flex-column justify-content-between">
+                <div class="card max-height-30 mb-2 py-2 px-3">
+                    <app-header></app-header>
+                </div>
+                <div class="card mb-2 min-height-440">
+                    <app-laoder></app-laoder>
+                    <router-outlet></router-outlet>
+                </div>
+                <div class="card min-height-50">
+                    <div class="row px-3">
+                        <div class="col-6">
+                            Footer / CopyRight
+                        </div>
+                        <div class="col-6 text-end">
+                            <span>{{dateDuJour | date: 'EEEE dd MMMM YYYY'}}</span>&nbsp;
+                            <span class="badge text-bg-secondary">{{dateDuJour | date: 'HH:mm:ss'}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

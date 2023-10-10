@@ -9,6 +9,25 @@ import { MenuComponent } from './components/menu/menu.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LaoderComponent } from './components/laoder/laoder.component';
 import { CarComponent } from './components/car/car.component';
+import { DetailVoitureComponent } from './components/detail-voiture/detail-voiture.component';
+import { DetailVoyageComponent } from './components/detail-voyage/detail-voyage.component';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+import { RouterModule, Routes } from '@angular/router';
+import { BoutonChaiseComponent } from './components/bouton-chaise/bouton-chaise.component';
+
+registerLocaleData(localeFr, 'fr');
+
+const routes: Routes = [
+  {
+    path: '', component: DashboardComponent,
+    children: [
+      {
+        path: 'reservation', component: CarComponent
+      }
+    ]
+  }
+];
 
 @NgModule({
   declarations: [
@@ -18,11 +37,15 @@ import { CarComponent } from './components/car/car.component';
     MenuComponent,
     HeaderComponent,
     LaoderComponent,
-    CarComponent
+    CarComponent,
+    DetailVoitureComponent,
+    DetailVoyageComponent,
+    BoutonChaiseComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]
