@@ -7,7 +7,6 @@ export interface Voiture {
     longueure: number,
     placelibre: number,
     placereserver: number,
-    places: Array<Place>
     trajet: string,
     depart: string,
     arriver: string

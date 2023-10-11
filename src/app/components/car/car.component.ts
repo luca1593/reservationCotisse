@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Place } from 'src/app/models/place';
 import { Voiture } from 'src/app/models/voiture';
 
 @Component({
@@ -6,7 +7,9 @@ import { Voiture } from 'src/app/models/voiture';
   templateUrl: './car.component.html',
   styleUrls: ['./car.component.scss']
 })
-export class CarComponent {
+export class CarComponent implements OnInit {
+
+  public places: Array<Place> = [];
   public voitures: Array<Voiture> = [
     {
       id: 1,
@@ -15,8 +18,6 @@ export class CarComponent {
       type: 'sprinter',
       placelibre: 20,
       placereserver: 12,
-      places: [
-      ],
       trajet: "Antananarivo - Fianarantsoa",
       depart: "30 oct 2023 18h:30",
       arriver: "02 oct 2023 18h:30"
@@ -28,9 +29,6 @@ export class CarComponent {
       type: 'crafter',
       placelibre: 25,
       placereserver: 7,
-      places: [
-
-      ],
       trajet: "Antananarivo - Antsirabe",
       depart: "30 oct 2023 18h:30",
       arriver: "02 oct 2023 18h:30"
@@ -42,13 +40,26 @@ export class CarComponent {
       type: 'Mersedess',
       placelibre: 5,
       placereserver: 22,
-      places: [
-
-      ],
       trajet: "Antananarivo - Morondava",
       depart: "30 oct 2023 18h:30",
       arriver: "02 oct 2023 18h:30"
     }
-  ]
+  ];
 
+  ngOnInit(): void {
+    this.initPlace();
+  }
+
+  initPlace(): void {
+    this.voitures.forEach(v => {
+      for (let i = 1; i <= v.chaise; i++) {
+        let place: Place = {
+          idVoiture: 1,
+          libre: Math.floor(Math.random() * 100) % 2 === 1,
+          numero: i
+        };
+        this.places.push(place);
+      }
+    });
+  }
 }

@@ -16,8 +16,6 @@ export class DetailVoitureComponent {
     longueure: 0,
     placelibre: 0,
     placereserver: 0,
-    places: [
-    ],
     trajet: '',
     depart: '',
     arriver: ''
