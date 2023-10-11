@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Place } from 'src/app/models/place';
 import { Voiture } from 'src/app/models/voiture';
+import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 
 @Component({
   selector: 'app-car',
@@ -46,8 +47,11 @@ export class CarComponent implements OnInit {
     }
   ];
 
+  constructor(private firebaseService: FirebaseService) { }
+
   ngOnInit(): void {
     this.initPlace();
+    this.reserverPlace();
   }
 
   initPlace(): void {
@@ -62,4 +66,9 @@ export class CarComponent implements OnInit {
       }
     });
   }
+
+  reserverPlace(): void {
+    this.firebaseService.savePalace(this.places);
+  }
+
 }
