@@ -15,7 +15,7 @@ export class CarComponent implements OnInit {
     {
       id: 1,
       longueure: 360,
-      chaise: 32,
+      chaise: 22,
       type: 'sprinter',
       placelibre: 20,
       placereserver: 12,
@@ -26,7 +26,7 @@ export class CarComponent implements OnInit {
     {
       id: 2,
       longueure: 360,
-      chaise: 32,
+      chaise: 22,
       type: 'crafter',
       placelibre: 25,
       placereserver: 7,
@@ -37,7 +37,7 @@ export class CarComponent implements OnInit {
     {
       id: 3,
       longueure: 260,
-      chaise: 27,
+      chaise: 25,
       type: 'Mersedess',
       placelibre: 5,
       placereserver: 22,
@@ -58,7 +58,7 @@ export class CarComponent implements OnInit {
     this.voitures.forEach(v => {
       for (let i = 1; i <= v.chaise; i++) {
         let place: Place = {
-          idVoiture: 1,
+          idVoiture: v.id,
           libre: Math.floor(Math.random() * 100) % 2 === 1,
           numero: i
         };

@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Place } from 'src/app/models/place';
 import { Voiture } from 'src/app/models/voiture';
 
 @Component({
@@ -20,5 +21,8 @@ export class DetailVoitureComponent {
     depart: '',
     arriver: ''
   }
+
+  @Input()
+  places: Array<Place> = [];
 
 }
