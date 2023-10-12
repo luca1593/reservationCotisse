@@ -1,5 +1,3 @@
-import { Place } from "src/app/models/place"
-
 export interface Voiture {
     id: number,
     type: string,
