@@ -9,9 +9,9 @@ import { FirebaseService } from 'src/app/services/firebase/firebase.service';
   styleUrls: ['./car.component.scss']
 })
 export class CarComponent implements OnInit {
-
-  public places: Array<Place> = [];
-  public voitures: Array<Voiture> = [
+  mapPlaces: Map<number, Array<Place>> = new Map();
+  places: Array<Place> = [];
+  voitures: Array<Voiture> = [
     {
       id: 1,
       longueure: 360,
@@ -51,7 +51,7 @@ export class CarComponent implements OnInit {
 
   ngOnInit(): void {
     this.initPlace();
-    this.reserverPlace();
+    this.getAllPlace();
   }
 
   initPlace(): void {
@@ -69,6 +69,25 @@ export class CarComponent implements OnInit {
 
   reserverPlace(): void {
     this.firebaseService.savePalace(this.places);
+  }
+
+  getAllPlace() {
+    this.firebaseService.getAllPlace().subscribe(data => {
+      data.forEach(d => {
+        this.voitures.forEach(v => {
+          if (d.idVoiture === v.id) {
+            if (this.mapPlaces.get(v.id)) {
+              this.mapPlaces.get(v.id)?.push(d);
+            } else {
+              let pls: Array<Place> = [];
+              pls.push(d)
+              this.mapPlaces.set(v.id, pls);
+            }
+          }
+        })
+      });
+    });
+    console.log(this.mapPlaces);
   }
 
 }
