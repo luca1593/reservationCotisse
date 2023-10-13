@@ -10,11 +10,16 @@
         <p>Arrivé : {{voiture.arriver}}</p>
     </div>
     <div class="col-6">
-        <div *ngFor="let p of places" class="row">
-            <div *ngIf="p.idVoiture === voiture.id" class="m-2 col-2">
-                <button type="button" ngClass="p.libre ? btn btn-success : btn btn-secondary">
-                    <span><i class="fa-solid fa-chair"></i>{{p.numero}}</span>
-                </button>
+        <div *ngFor="let map of mapPlaces | keyvalue">
+            <div *ngIf="map.key === voiture.id">
+                <div *ngFor="let p, index as index of mapPlaces.get(map.key)" class="row">
+                    <span *ngFor="let s of mapIdPlace.get(map.key)">{{s}}</span>
+                    <div class="m-2 col-2">
+                        <button type="button" [ngClass]="p.libre ? 'btn btn-secondary' : 'btn btn-success'">
+                            <span><i class="fa-solid fa-chair"></i>{{p.numero}}</span>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -10,6 +10,7 @@ import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 })
 export class CarComponent implements OnInit {
   mapPlaces: Map<number, Array<Place>> = new Map();
+  mapIdPlaces: Map<number, Array<string>> = new Map();
   places: Array<Place> = [];
   voitures: Array<Voiture> = [
     {
@@ -51,6 +52,7 @@ export class CarComponent implements OnInit {
 
   ngOnInit(): void {
     this.initPlace();
+    //this.reserverPlace();
     this.getAllPlace();
   }
 
@@ -71,23 +73,33 @@ export class CarComponent implements OnInit {
     this.firebaseService.savePalace(this.places);
   }
 
-  getAllPlace() {
-    this.firebaseService.getAllPlace().subscribe(data => {
-      data.forEach(d => {
+  async getAllPlace() {
+    this.firebaseService.getAllPlace().then( data => {
+      data.docs.sort((a, b) => (a.get("idVoiture") - b.get("idVoiture"))).sort((a, b) => (a.get("numero") - b.get("numero"))).forEach(d=>{
         this.voitures.forEach(v => {
-          if (d.idVoiture === v.id) {
+          let place: Place = {
+            idVoiture: d.get("idVoiture"),
+            libre: d.get("libre"),
+            numero: d.get("numero")
+          }
+          if (d.get("idVoiture") === v.id) {
             if (this.mapPlaces.get(v.id)) {
-              this.mapPlaces.get(v.id)?.push(d);
+              this.mapPlaces.get(v.id)?.push(place);
+              this.mapIdPlaces.get(v.id)?.push(d.id);
             } else {
               let pls: Array<Place> = [];
-              pls.push(d)
+              let listId: Array<string> = [];
+              pls.push(place)
+              listId.push(d.id);
               this.mapPlaces.set(v.id, pls);
+              this.mapIdPlaces.set(v.id, listId);
             }
           }
         })
       });
+    }).catch( (error) => {
+      console.log("Erreur de chargements");
     });
-    console.log(this.mapPlaces);
   }
 
 }

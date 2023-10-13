@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, addDoc, collection, collectionData } from '@angular/fire/firestore';
-import { Observable, of } from 'rxjs';
+import { Firestore, addDoc, collection, getDocs, doc, updateDoc } from '@angular/fire/firestore';
 import { Place } from 'src/app/models/place';
 
 @Injectable({
@@ -22,13 +21,23 @@ export class FirebaseService {
 
   }
 
-  getAllPlace(): Observable<Array<Place>> {
+  async getAllPlace() {
     let places: Array<Place> = [];
     const collectionInstance = collection(this.fireStore, "places");
-    collectionData(collectionInstance).subscribe(data => {
-      return data;
+    let allData = await getDocs(collectionInstance);
+    return allData;
+  }
+
+  updatePlace(place: Place, id: string){
+    const collectionInstance = doc(this.fireStore, "places", id);
+    const updatedata = {
+      libre: !place.libre
+    }
+    updateDoc(collectionInstance, updatedata).then(() => {
+      console.log("Place reserver");
+    }).catch(() => {
+      console.log("Place occuper");
     });
-    return of();
   }
 
 }
