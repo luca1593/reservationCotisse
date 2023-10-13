@@ -12,11 +12,10 @@
     <div class="col-6">
         <div *ngFor="let map of mapPlaces | keyvalue">
             <div *ngIf="map.key === voiture.id">
-                <div *ngFor="let p, index as index of mapPlaces.get(map.key)" class="row">
-                    <span *ngFor="let s of mapIdPlace.get(map.key)">{{s}}</span>
+                <div *ngFor="let p of mapPlaces.get(map.key)" class="row">
                     <div class="m-2 col-2">
-                        <button type="button" [ngClass]="p.libre ? 'btn btn-secondary' : 'btn btn-success'">
-                            <span><i class="fa-solid fa-chair"></i>{{p.numero}}</span>
+                        <button type="button" [ngClass]="p ? 'btn btn-secondary' : 'btn btn-success'">
+                            <span><i class="fa-solid fa-chair"></i>{{p}}</span>
                         </button>
                     </div>
                 </div>

@@ -9,8 +9,7 @@ import { FirebaseService } from 'src/app/services/firebase/firebase.service';
   styleUrls: ['./car.component.scss']
 })
 export class CarComponent implements OnInit {
-  mapPlaces: Map<number, Array<Place>> = new Map();
-  mapIdPlaces: Map<number, Array<string>> = new Map();
+  mapPlaces: Map<number, (Place|string)[][]> = new Map();
   places: Array<Place> = [];
   voitures: Array<Voiture> = [
     {
@@ -84,19 +83,18 @@ export class CarComponent implements OnInit {
           }
           if (d.get("idVoiture") === v.id) {
             if (this.mapPlaces.get(v.id)) {
-              this.mapPlaces.get(v.id)?.push(place);
-              this.mapIdPlaces.get(v.id)?.push(d.id);
+              this.mapPlaces.get(v.id)?.push([d.id,place]);
             } else {
               let pls: Array<Place> = [];
               let listId: Array<string> = [];
               pls.push(place)
               listId.push(d.id);
-              this.mapPlaces.set(v.id, pls);
-              this.mapIdPlaces.set(v.id, listId);
+              this.mapPlaces.set(v.id, [listId,pls]);
             }
           }
         })
       });
+      console.log(this.mapPlaces);
     }).catch( (error) => {
       console.log("Erreur de chargements");
     });

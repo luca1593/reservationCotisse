@@ -25,18 +25,10 @@ export class DetailVoitureComponent {
     arriver: ''
   };
   @Input()
-  mapPlaces: Map<number, Array<Place>> = new Map();
-  @Input()
-  mapIdPlace: Map<number, Array<string>> = new Map();
+  mapPlaces: Map<number, (Place|string)[][]> = new Map();
 
   reserverPlace(place: Place){
     let idPlace: string = "";
     this.firebaseService.updatePlace(place, idPlace);
   }
-
-  getIdPlace(index: number, list: Array<string>){
-    console.log(list.at(index));
-    return list.at(index);
-  }
-
 }
