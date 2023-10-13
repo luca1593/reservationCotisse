@@ -9,7 +9,7 @@ import { FirebaseService } from 'src/app/services/firebase/firebase.service';
   styleUrls: ['./car.component.scss']
 })
 export class CarComponent implements OnInit {
-  mapPlaces: Map<number, (Place|string)[][]> = new Map();
+  mapPlaces: Map<number, (string|Place)[][]> = new Map();
   places: Array<Place> = [];
   voitures: Array<Voiture> = [
     {
@@ -83,7 +83,8 @@ export class CarComponent implements OnInit {
           }
           if (d.get("idVoiture") === v.id) {
             if (this.mapPlaces.get(v.id)) {
-              this.mapPlaces.get(v.id)?.push([d.id,place]);
+              this.mapPlaces.get(v.id)?.[0].push(d.id);
+              this.mapPlaces.get(v.id)?.[1].push(place);
             } else {
               let pls: Array<Place> = [];
               let listId: Array<string> = [];
