@@ -3,18 +3,22 @@
         <div class="row">
             <div class="col-6">
                 <div class="row">
-                    <div class="col-1 text-center bg-secondary text-white custum-border">
-                        <span><i class="fa-solid fa-chair"></i></span>
+                    <div class="col-2 text-center bg-danger text-white bg-chaise custum-border">
+                        <span></span>
                     </div>
-                    <div class="col-10"><h5>Place résérvé</h5></div>
+                    <div class="col-10">
+                        <h5>Place résérvé</h5>
+                    </div>
                 </div>
             </div>
             <div class="col-6">
                 <div class="row">
-                    <div class="col-1 text-center bg-success text-white custum-border">
-                        <span><i class="fa-solid fa-chair"></i></span>
+                    <div class="col-2 text-center bg-success bg-chaise text-white custum-border">
+                        <span></span>
                     </div>
-                    <div class="col-10"><h5>Place libre</h5></div>
+                    <div class="col-10">
+                        <h5>Place libre</h5>
+                    </div>
                 </div>
             </div>
         </div>
@@ -22,6 +26,6 @@
     <div class="col-2"></div>
 </div>
 <div class="col p-2 mx-3" *ngFor="let v of voitures">
-    <h3>{{v.type}}&nbsp;{{v.id}}</h3>
+    <h3>{{v.type}}</h3>
     <app-detail-voiture [voiture]="v" [mapPlaces]="mapPlaces"></app-detail-voiture>
 </div>

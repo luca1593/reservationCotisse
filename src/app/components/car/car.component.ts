@@ -9,14 +9,14 @@ import { FirebaseService } from 'src/app/services/firebase/firebase.service';
   styleUrls: ['./car.component.scss']
 })
 export class CarComponent implements OnInit {
-  mapPlaces: Map<number, (string|Place)[][]> = new Map();
+  mapPlaces: Map<number, Place[]> = new Map();
   places: Array<Place> = [];
   voitures: Array<Voiture> = [
     {
       id: 1,
       longueure: 360,
       chaise: 22,
-      type: 'sprinter',
+      type: 'Sprinter',
       placelibre: 20,
       placereserver: 12,
       trajet: "Antananarivo - Fianarantsoa",
@@ -27,7 +27,7 @@ export class CarComponent implements OnInit {
       id: 2,
       longueure: 360,
       chaise: 22,
-      type: 'crafter',
+      type: 'Crafter',
       placelibre: 25,
       placereserver: 7,
       trajet: "Antananarivo - Antsirabe",
@@ -73,30 +73,27 @@ export class CarComponent implements OnInit {
   }
 
   async getAllPlace() {
-    this.firebaseService.getAllPlace().then( data => {
-      data.docs.sort((a, b) => (a.get("idVoiture") - b.get("idVoiture"))).sort((a, b) => (a.get("numero") - b.get("numero"))).forEach(d=>{
+    this.firebaseService.getAllPlace().then(data => {
+      data.docs.sort((a, b) => (a.get("idVoiture") - b.get("idVoiture"))).sort((a, b) => (b.get("numero") - a.get("numero"))).forEach(d => {
         this.voitures.forEach(v => {
           let place: Place = {
+            id: d.id,
             idVoiture: d.get("idVoiture"),
             libre: d.get("libre"),
             numero: d.get("numero")
           }
           if (d.get("idVoiture") === v.id) {
             if (this.mapPlaces.get(v.id)) {
-              this.mapPlaces.get(v.id)?.[0].push(d.id);
-              this.mapPlaces.get(v.id)?.[1].push(place);
+              this.mapPlaces.get(v.id)?.push(place);
             } else {
               let pls: Array<Place> = [];
-              let listId: Array<string> = [];
               pls.push(place)
-              listId.push(d.id);
-              this.mapPlaces.set(v.id, [listId,pls]);
+              this.mapPlaces.set(v.id, pls);
             }
           }
         })
       });
-      console.log(this.mapPlaces);
-    }).catch( (error) => {
+    }).catch((error) => {
       console.log("Erreur de chargements");
     });
   }

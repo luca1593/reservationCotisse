@@ -28,13 +28,14 @@ export class FirebaseService {
     return allData;
   }
 
-  updatePlace(place: Place, id: string){
+  updatePlace(place: Place, id: string) {
     const collectionInstance = doc(this.fireStore, "places", id);
     const updatedata = {
       libre: !place.libre
     }
     updateDoc(collectionInstance, updatedata).then(() => {
       console.log("Place reserver");
+      window.location.reload();
     }).catch(() => {
       console.log("Place occuper");
     });

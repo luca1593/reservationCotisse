@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { Place } from 'src/app/models/place';
 import { Voiture } from 'src/app/models/voiture';
 import { FirebaseService } from 'src/app/services/firebase/firebase.service';
@@ -8,9 +8,7 @@ import { FirebaseService } from 'src/app/services/firebase/firebase.service';
   templateUrl: './detail-voiture.component.html',
   styleUrls: ['./detail-voiture.component.scss']
 })
-export class DetailVoitureComponent {
-
-  constructor(private firebaseService: FirebaseService){}
+export class DetailVoitureComponent implements AfterViewInit {
 
   @Input()
   voiture: Voiture = {
@@ -25,10 +23,40 @@ export class DetailVoitureComponent {
     arriver: ''
   };
   @Input()
-  mapPlaces: Map<number, (Place|string)[][]> = new Map();
+  mapPlaces: Map<number, Place[]> = new Map();
 
-  reserverPlace(place: Place){
-    let idPlace: string = "";
-    this.firebaseService.updatePlace(place, idPlace);
+  constructor(private firebaseService: FirebaseService) { }
+
+  ngAfterViewInit(): void {
+    this.getTotalPlaceLibre();
   }
+
+  reserverPlace(place: Place) {
+    if (place.id && place.libre) {
+      this.firebaseService.updatePlace(place, place.id);
+    } else {
+      alert("Cette place est deja occuper, veuillez choisir une place s'il vous plait");
+    }
+  }
+
+  getTotalPlaceLibre(): number {
+    let placeLibre: number = 0;
+    this.mapPlaces.get(this.voiture.id)?.forEach(p => {
+      if (p.libre) {
+        placeLibre += 1;
+      }
+    });
+    return placeLibre;
+  }
+
+  getPlaceReserver(): number {
+    let placeReserver: number = 0;
+    this.mapPlaces.get(this.voiture.id)?.forEach(p => {
+      if (!p.libre) {
+        placeReserver += 1;
+      }
+    });
+    return placeReserver;
+  }
+
 }

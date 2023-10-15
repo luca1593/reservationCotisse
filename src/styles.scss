@@ -7,6 +7,13 @@ $black-color: black;
     border-radius: 5px !important;
 }
 
+.bg-chaise {
+    background-image: url("./assets/images/chaise-1.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 body {
     background-color: darkgrey;
     overflow-x: hidden;
