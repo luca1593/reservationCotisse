@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Client } from 'src/app/models/Client';
+import { Voyage } from 'src/app/models/Voyage';
 import { Place } from 'src/app/models/place';
 import { Voiture } from 'src/app/models/voiture';
 import { FirebaseService } from 'src/app/services/firebase/firebase.service';
@@ -10,6 +12,13 @@ import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 })
 export class CarComponent implements OnInit {
   mapPlaces: Map<number, Place[]> = new Map();
+  client: Client = {
+    adresse:"",
+    email:"",
+    nom:"",
+    nombrePlace: 0,
+    numeroTel: ""
+  };
   places: Array<Place> = [];
   voitures: Array<Voiture> = [
     {
@@ -17,41 +26,36 @@ export class CarComponent implements OnInit {
       longueure: 360,
       chaise: 22,
       type: 'Sprinter',
-      placelibre: 20,
-      placereserver: 12,
-      trajet: "Antananarivo - Fianarantsoa",
-      depart: "30 oct 2023 18h:30",
-      arriver: "02 oct 2023 18h:30"
+      places:[]
     },
     {
       id: 2,
       longueure: 360,
       chaise: 22,
       type: 'Crafter',
-      placelibre: 25,
-      placereserver: 7,
-      trajet: "Antananarivo - Antsirabe",
-      depart: "30 oct 2023 18h:30",
-      arriver: "02 oct 2023 18h:30"
+      places:[]
     },
     {
       id: 3,
       longueure: 260,
       chaise: 25,
       type: 'Mersedess',
-      placelibre: 5,
-      placereserver: 22,
-      trajet: "Antananarivo - Morondava",
-      depart: "30 oct 2023 18h:30",
-      arriver: "02 oct 2023 18h:30"
+      places:[]
     }
   ];
+
+  voyages: Array<Voyage> = [];
+  depart: string = "";
+  arrive: string = "";
+  date: number = Date.now();
 
   constructor(private firebaseService: FirebaseService) { }
 
   ngOnInit(): void {
     this.initPlace();
     //this.reserverPlace();
+    //this.initVoyage();
+    this.getAllVoyage();
     this.getAllPlace();
   }
 
@@ -59,11 +63,11 @@ export class CarComponent implements OnInit {
     this.voitures.forEach(v => {
       for (let i = 1; i <= v.chaise; i++) {
         let place: Place = {
-          idVoiture: v.id,
           libre: Math.floor(Math.random() * 100) % 2 === 1,
-          numero: i
+          numero: i,
+          client: this.client
         };
-        this.places.push(place);
+        v.places.push(place);
       }
     });
   }
@@ -72,15 +76,78 @@ export class CarComponent implements OnInit {
     this.firebaseService.savePalace(this.places);
   }
 
+  initVoyage(){
+    let voyage: Voyage = {
+      depart: "Antananarivo",
+      arrive: "Morondava",
+      date: Date.now(),
+      prix: 25000,
+      voitures: []
+    }
+    this.voitures.forEach( v => {
+      voyage.voitures.push(v);
+    });
+    let v1: Voyage = {
+      depart: "Antananarivo",
+      arrive: "Fianarantsoa",
+      date: Date.now(),
+      prix: 25000,
+      voitures: []
+    }
+    this.voitures.forEach( v => {
+      v1.voitures.push(v);
+    });
+    let v2: Voyage = {
+      depart: "Antananarivo",
+      arrive: "Antsirabe",
+      date: Date.now(),
+      prix: 25000,
+      voitures: []
+    }
+    this.voitures.forEach( v => {
+      v2.voitures.push(v);
+    });
+    this.firebaseService.saveVoyage(voyage);
+    this.firebaseService.saveVoyage(v1);
+    this.firebaseService.saveVoyage(v2);
+  }
+
+  async getAllVoyage() {
+    this.voyages = [];
+    this.firebaseService.getAllVoyages().then(data => {
+      data.docs.forEach( d => {
+        let voyage: Voyage = {
+          id: d.id,
+          arrive: d.get("arrive"),
+          depart: d.get("depart"),
+          date: d.get("date"),
+          prix: d.get("prix"),
+          voitures: d.get("voitures")
+        }
+        this.voyages.push(voyage);
+      });
+    }).catch( (error) =>{
+      console.log("Erreur de chargements");
+    });
+  }
+
+  filterVoyage() {
+    this.getAllVoyage();
+    if (this.depart && this.arrive && this.date) {
+      this.voyages = this.voyages.filter(item => item.date === this.date && item.arrive === this.arrive && item.depart === this.depart);
+    }
+    console.log(this.voyages);
+  }
+
   async getAllPlace() {
+
     this.firebaseService.getAllPlace().then(data => {
       data.docs.sort((a, b) => (a.get("idVoiture") - b.get("idVoiture"))).sort((a, b) => (b.get("numero") - a.get("numero"))).forEach(d => {
         this.voitures.forEach(v => {
           let place: Place = {
-            id: d.id,
-            idVoiture: d.get("idVoiture"),
             libre: d.get("libre"),
-            numero: d.get("numero")
+            numero: d.get("numero"),
+            client: this.client
           }
           if (d.get("idVoiture") === v.id) {
             if (this.mapPlaces.get(v.id)) {

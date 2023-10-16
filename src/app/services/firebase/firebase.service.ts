@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Firestore, addDoc, collection, getDocs, doc, updateDoc } from '@angular/fire/firestore';
+import { Voyage } from 'src/app/models/Voyage';
 import { Place } from 'src/app/models/place';
 
 @Injectable({
@@ -18,7 +19,37 @@ export class FirebaseService {
         console.log("Place occuper");
       })
     });
+  }
 
+  saveVoyage(voyage: Voyage){
+    const collectionInstance = collection(this.fireStore, "voyage");
+    addDoc(collectionInstance, voyage).then(() => {
+      console.log("Voyage enregistrer");
+    }).catch(error => {
+      console.log("Erreur sur l'enregistrement du voyage");
+    });
+  }
+
+  async getAllVoyages(){
+    let voyages: Array<Voyage> = [];
+    const collectionInstance = collection(this.fireStore, "voyage");
+    let allData = await getDocs(collectionInstance);
+    return allData;
+  }
+
+  updateVoyage(voyage: Voyage, id: string){
+    const collectionInstance = doc(this.fireStore, "voyage", id);
+    /*
+    const updatedata = {
+      libre: !place.libre
+    }
+    updateDoc(collectionInstance, updatedata).then(() => {
+      console.log("Place reserver");
+      window.location.reload();
+    }).catch(() => {
+      console.log("Place occuper");
+    });
+    */
   }
 
   async getAllPlace() {

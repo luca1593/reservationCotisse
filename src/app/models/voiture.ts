@@ -1,11 +1,9 @@
+import { Place } from "./place";
+
 export interface Voiture {
     id: number,
     type: string,
     chaise: number,
     longueure: number,
-    placelibre: number,
-    placereserver: number,
-    trajet: string,
-    depart: string,
-    arriver: string
+    places: Array<Place>
 }

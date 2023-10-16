@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { Voyage } from 'src/app/models/Voyage';
 import { Place } from 'src/app/models/place';
 import { Voiture } from 'src/app/models/voiture';
 import { FirebaseService } from 'src/app/services/firebase/firebase.service';
@@ -16,14 +17,31 @@ export class DetailVoitureComponent implements AfterViewInit {
     type: '',
     chaise: 0,
     longueure: 0,
-    placelibre: 0,
-    placereserver: 0,
-    trajet: '',
-    depart: '',
-    arriver: ''
+    places: [
+      {
+        libre: true,
+        numero: 1,
+        client : {
+          adresse: "",
+          email: "",
+          nom: "",
+          nombrePlace: 0,
+          numeroTel: ""
+        }
+      }
+    ]
   };
   @Input()
   mapPlaces: Map<number, Place[]> = new Map();
+
+  @Input()
+  voyage: Voyage = {
+    arrive: "",
+    depart: "",
+    date: Date.now(),
+    prix: 0,
+    voitures: []
+  };
 
   constructor(private firebaseService: FirebaseService) { }
 
@@ -32,8 +50,8 @@ export class DetailVoitureComponent implements AfterViewInit {
   }
 
   reserverPlace(place: Place) {
-    if (place.id && place.libre) {
-      this.firebaseService.updatePlace(place, place.id);
+    if (place.libre) {
+      //this.firebaseService.updatePlace(place, place.id);
     } else {
       alert("Cette place est deja occuper, veuillez choisir une place s'il vous plait");
     }

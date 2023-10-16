@@ -18,6 +18,7 @@ import { BoutonChaiseComponent } from './components/bouton-chaise/bouton-chaise.
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
+import { FormsModule } from '@angular/forms';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -48,6 +49,7 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     RouterModule.forRoot(routes),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore())
