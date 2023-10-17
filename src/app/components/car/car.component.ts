@@ -13,9 +13,9 @@ import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 export class CarComponent implements OnInit {
   mapPlaces: Map<number, Place[]> = new Map();
   client: Client = {
-    adresse:"",
-    email:"",
-    nom:"",
+    adresse: "",
+    email: "",
+    nom: "",
     nombrePlace: 0,
     numeroTel: ""
   };
@@ -26,21 +26,21 @@ export class CarComponent implements OnInit {
       longueure: 360,
       chaise: 22,
       type: 'Sprinter',
-      places:[]
+      places: []
     },
     {
       id: 2,
       longueure: 360,
       chaise: 22,
       type: 'Crafter',
-      places:[]
+      places: []
     },
     {
       id: 3,
       longueure: 260,
       chaise: 25,
       type: 'Mersedess',
-      places:[]
+      places: []
     }
   ];
 
@@ -76,7 +76,7 @@ export class CarComponent implements OnInit {
     this.firebaseService.savePalace(this.places);
   }
 
-  initVoyage(){
+  initVoyage() {
     let voyage: Voyage = {
       depart: "Antananarivo",
       arrive: "Morondava",
@@ -84,7 +84,7 @@ export class CarComponent implements OnInit {
       prix: 25000,
       voitures: []
     }
-    this.voitures.forEach( v => {
+    this.voitures.forEach(v => {
       voyage.voitures.push(v);
     });
     let v1: Voyage = {
@@ -94,7 +94,7 @@ export class CarComponent implements OnInit {
       prix: 25000,
       voitures: []
     }
-    this.voitures.forEach( v => {
+    this.voitures.forEach(v => {
       v1.voitures.push(v);
     });
     let v2: Voyage = {
@@ -104,7 +104,7 @@ export class CarComponent implements OnInit {
       prix: 25000,
       voitures: []
     }
-    this.voitures.forEach( v => {
+    this.voitures.forEach(v => {
       v2.voitures.push(v);
     });
     this.firebaseService.saveVoyage(voyage);
@@ -115,18 +115,23 @@ export class CarComponent implements OnInit {
   async getAllVoyage() {
     this.voyages = [];
     this.firebaseService.getAllVoyages().then(data => {
-      data.docs.forEach( d => {
+      data.docs.forEach(d => {
         let voyage: Voyage = {
           id: d.id,
           arrive: d.get("arrive"),
           depart: d.get("depart"),
           date: d.get("date"),
           prix: d.get("prix"),
-          voitures: d.get("voitures")
-        }
+          voitures: []
+        };
+        let vtrs: Array<Voiture> = d.get("voitures");
+        vtrs.forEach(v => {
+          v.places.sort((p1, p2) => (p2.numero - p1.numero));
+          voyage.voitures.push(v);
+        });
         this.voyages.push(voyage);
       });
-    }).catch( (error) =>{
+    }).catch((error) => {
       console.log("Erreur de chargements");
     });
   }

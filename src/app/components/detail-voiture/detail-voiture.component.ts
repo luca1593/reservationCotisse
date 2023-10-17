@@ -21,7 +21,7 @@ export class DetailVoitureComponent implements AfterViewInit {
       {
         libre: true,
         numero: 1,
-        client : {
+        client: {
           adresse: "",
           email: "",
           nom: "",
@@ -43,15 +43,21 @@ export class DetailVoitureComponent implements AfterViewInit {
     voitures: []
   };
 
+  @Input()
+  voyages: Array<Voyage> = [];
+
   constructor(private firebaseService: FirebaseService) { }
 
   ngAfterViewInit(): void {
     this.getTotalPlaceLibre();
   }
 
-  reserverPlace(place: Place) {
+  reserverPlace(place: Place, voiture: Voiture) {
     if (place.libre) {
-      //this.firebaseService.updatePlace(place, place.id);
+      place.libre = !place.libre;
+      if (this.voyage.id) {
+        this.firebaseService.updateVoyage(this.voyage, place, voiture, this.voyage.id);
+      }
     } else {
       alert("Cette place est deja occuper, veuillez choisir une place s'il vous plait");
     }
@@ -59,7 +65,7 @@ export class DetailVoitureComponent implements AfterViewInit {
 
   getTotalPlaceLibre(): number {
     let placeLibre: number = 0;
-    this.mapPlaces.get(this.voiture.id)?.forEach(p => {
+    this.voiture.places.forEach(p => {
       if (p.libre) {
         placeLibre += 1;
       }
@@ -69,7 +75,7 @@ export class DetailVoitureComponent implements AfterViewInit {
 
   getPlaceReserver(): number {
     let placeReserver: number = 0;
-    this.mapPlaces.get(this.voiture.id)?.forEach(p => {
+    this.voiture.places.forEach(p => {
       if (!p.libre) {
         placeReserver += 1;
       }

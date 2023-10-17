@@ -5,29 +5,25 @@
         <p>Place reservé : {{getPlaceReserver()}}</p>
     </div>
     <div class="col-5 border-right">
-        <p>Trajet : </p>
-        <p>Départ : </p>
-        <p>Arrivé : </p>
+        <p>Départ : {{voyage.depart}}</p>
+        <p>Arrivé : {{voyage.arrive}}</p>
+        <p>Prix : {{voyage.prix}}</p>
     </div>
     <div class="col-3">
-        <div *ngFor="let map of mapPlaces | keyvalue">
-            <div *ngIf="map.key === voiture.id">
-                <div class="container mb-2 p-2">
-                    <div class="row custum-border p-2 mb-2">
-                        <div *ngFor="let p of mapPlaces.get(map.key); let i = index" class="col-3">
-                            <div class="mb-1">
-                                <button type="button"
-                                    [ngClass]="p.libre ? 'btn btn-success bg-chaise small-text' : 'btn btn-danger bg-chaise small-text'"
-                                    (click)="reserverPlace(p)">{{p.numero}}
-                                </button>
-                            </div>
-                            <span *ngIf="i % 4 === 3" class="w-100"></span>
-                        </div>
+        <div class="container mb-2 p-2">
+            <div class="row custum-border p-2 mb-2">
+                <div *ngFor="let p of voiture.places; let i = index" class="col-3">
+                    <div class="mb-1">
+                        <button type="button"
+                            [ngClass]="p.libre ? 'btn btn-success bg-chaise small-text' : 'btn btn-danger bg-chaise small-text'"
+                            (click)="reserverPlace(p, voiture)">{{p.numero}}
+                        </button>
                     </div>
-                    <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal">Valider</button>
+                    <span *ngIf="i % 4 === 3" class="w-100"></span>
                 </div>
             </div>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">Valider</button>
         </div>
     </div>
 </div>
