@@ -31,11 +31,13 @@ export class DetailVoitureComponent implements AfterViewInit {
       }
     ]
   };
+
   @Input()
   mapPlaces: Map<number, Place[]> = new Map();
 
   @Input()
   voyage: Voyage = {
+    id:"",
     arrive: "",
     depart: "",
     date: Date.now(),
@@ -55,9 +57,10 @@ export class DetailVoitureComponent implements AfterViewInit {
   reserverPlace(place: Place, voiture: Voiture) {
     if (place.libre) {
       place.libre = !place.libre;
+      /*
       if (this.voyage.id) {
-        this.firebaseService.updateVoyage(this.voyage, place, voiture, this.voyage.id);
-      }
+        this.firebaseService.updateVoyage(this.voyage, this.voyage.id);
+      }*/
     } else {
       alert("Cette place est deja occuper, veuillez choisir une place s'il vous plait");
     }

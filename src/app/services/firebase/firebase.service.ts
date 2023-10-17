@@ -38,19 +38,10 @@ export class FirebaseService {
     return allData;
   }
 
-  updateVoyage(voyage: Voyage, place: Place, voiture: Voiture, id: string,) {
-    const collectionInstance = doc(this.fireStore, "voyage", id);
-    let voitures: Array<Voiture> = voyage.voitures;
-    let indexVoiture = voyage.voitures.lastIndexOf(voiture);
-    voitures.at(indexVoiture)?.places.forEach(p => {
-      if (p.numero === place.numero) {
-        p.libre = place.libre;
-        p.client = place.client
-      }
-    });
-
+  updateVoyage(voyage: Voyage, id: string,) {
+    const collectionInstance = doc(this.fireStore, "voyage", id); 
     const updatedata = {
-      voitures: voitures
+      voitures: voyage.voitures
     }
     updateDoc(collectionInstance, updatedata).then(() => {
       console.log("Place reserver");

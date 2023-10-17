@@ -19,6 +19,7 @@ import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import { FormsModule } from '@angular/forms';
+import { ValidationReservationModalComponent } from './components/validation-reservation-modal/validation-reservation-modal.component';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -44,7 +45,8 @@ const routes: Routes = [
     CarComponent,
     DetailVoitureComponent,
     DetailVoyageComponent,
-    BoutonChaiseComponent
+    BoutonChaiseComponent,
+    ValidationReservationModalComponent
   ],
   imports: [
     BrowserModule,
