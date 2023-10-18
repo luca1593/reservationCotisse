@@ -13,17 +13,8 @@ import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 export class ValidationReservationModalComponent {
 
   @Input()
-  place: Place = {
-    libre: false,
-    numero: 0,
-    client:{
-      adresse:"",
-      email:"",
-      nom:"",
-      nombrePlace:0,
-      numeroTel:""
-    }
-  }
+  places: Array<Place> = [];
+
   @Input()
   idModal: string = "";
 
@@ -58,22 +49,28 @@ export class ValidationReservationModalComponent {
   };
 
   client: Client = {
-    adresse:"",
-    email:"",
-    nom:"",
-    nombrePlace:0,
-    numeroTel:""
+    adresse: "",
+    email: "",
+    nom: "",
+    nombrePlace: this.places.length,
+    numeroTel: ""
   }
 
   constructor(private firebaseService: FirebaseService) { }
 
   validerReservation() {
     let voitures: Array<Voiture> = this.voyage.voitures;
-    let indexVoiture = this.voyage.voitures.lastIndexOf(this.voiture);
-    voitures.at(indexVoiture)?.places.forEach(p => {
-      if (p.numero === this.place.numero) {
-        p.libre = this.place.libre;
-        p.client = this.client
+    this.client.nombrePlace = this.places.length;
+    voitures.forEach(vtr => {
+      if (vtr.id === this.voiture.id) {
+        vtr.places.forEach(p => {
+          this.places.forEach(place => {
+            if (p.numero === place.numero) {
+              p.libre = place.libre;
+              p.client = this.client;
+            }
+          });
+        });
       }
     });
 

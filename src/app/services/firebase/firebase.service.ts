@@ -39,7 +39,7 @@ export class FirebaseService {
   }
 
   updateVoyage(voyage: Voyage, id: string,) {
-    const collectionInstance = doc(this.fireStore, "voyage", id); 
+    const collectionInstance = doc(this.fireStore, "voyage", id);
     const updatedata = {
       voitures: voyage.voitures
     }

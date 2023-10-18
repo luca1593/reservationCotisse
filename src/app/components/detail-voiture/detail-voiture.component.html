@@ -22,9 +22,17 @@
                     <span *ngIf="i % 4 === 3" class="w-100"></span>
                 </div>
             </div>
-            <button type="button" class="btn btn-success" data-bs-toggle="modal"
-            [attr.data-bs-target]="'#modal' + voyage.id + voiture.id">Valider</button>
-            <app-validation-reservation-modal [voyage]="voyage" [idModal]="'modal' + voyage.id + voiture.id"></app-validation-reservation-modal>
+            <div class="row">
+                <div class="col-6">
+                    <button type="button" class="btn btn-danger" (click)="annulerReservation()">Annuler</button>
+                </div>
+                <div class="col-6">
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                        [attr.data-bs-target]="'#modal' + voyage.id + voiture.id">Valider</button>
+                </div>
+            </div>
+            <app-validation-reservation-modal [places]="places" [voiture]="voiture" [voyage]="voyage"
+                [idModal]="'modal' + voyage.id + voiture.id"></app-validation-reservation-modal>
         </div>
     </div>
 </div>

@@ -5,40 +5,46 @@
             <div class="modal-content bg-info">
                 <div class="modal-header text-white">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Validation reservation</h1>
-                    <button type="button" class="btn-close text-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close text-danger" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body bg-white">
                     <span class="small-text">Les informations suivante sont obligatoire</span>
                     <div class="row">
                         <div class="col-md-6">
                             <label for="nom" class="form-label">Nom complet</label>
-                            <input type="text" class="form-control" name="nom" id="nom" [(ngModel)]="client.nom" placeholder="Votre nom">
+                            <input type="text" class="form-control" name="nom" id="nom" [(ngModel)]="client.nom"
+                                placeholder="Votre nom">
                             <div class="valid-feedback">Le champ nom est obligatoire</div>
                         </div>
                         <div class="col-md-6">
                             <label for="email" class="form-label">Adress e-mail</label>
                             <div class="input-group has-validation">
                                 <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                <input type="email" class="form-control" name="email" id="email"  [(ngModel)]="client.email" aria-describedby="inputGroupPrepend">
+                                <input type="email" class="form-control" name="email" id="email"
+                                    [(ngModel)]="client.email" aria-describedby="inputGroupPrepend">
                                 <div class="invalid-feedback">Email invalide</div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <label for="numeroTel" class="form-label">Numéro téléphone</label>
-                            <input type="email" class="form-control" name="numeroTel" id="numeroTel" [(ngModel)]="client.numeroTel" required>
+                            <input type="email" class="form-control" name="numeroTel" id="numeroTel"
+                                [(ngModel)]="client.numeroTel" required>
                             <div class="valid-feedback">Le numéro de téléphone est obligatoire</div>
                         </div>
                         <div class="col-md-6">
                             <label for="nombrePlace" class="form-label">Nombre de place</label>
                             <div class="input-group has-validation">
-                                <input type="number" class="form-control" name="nombrePlace" [(ngModel)]="client.nombrePlace" id="nombrePlace" required>
+                                <input type="number" class="form-control" name="nombrePlace"
+                                    [(ngModel)]="client.nombrePlace" id="nombrePlace" disabled="disabled" required>
                                 <div class="invalid-feedback">Le nombre de place est obligatoire</div>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <label for="adresse" class="form-label">Adresse</label>
                             <div class="input-group has-validation">
-                                <input type="text" class="form-control" name="adresse" [(ngModel)]="client.adresse" id="adresse" required>
+                                <input type="text" class="form-control" name="adresse" [(ngModel)]="client.adresse"
+                                    id="adresse" required>
                                 <div class="invalid-feedback">L'adresse est obligatoire</div>
                             </div>
                         </div>
@@ -53,7 +59,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" (click)="validerReservation()">Save changes</button>
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
+                        (click)="validerReservation()">Save changes</button>
                 </div>
             </div>
         </form>

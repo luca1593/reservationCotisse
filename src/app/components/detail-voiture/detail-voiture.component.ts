@@ -33,11 +33,8 @@ export class DetailVoitureComponent implements AfterViewInit {
   };
 
   @Input()
-  mapPlaces: Map<number, Place[]> = new Map();
-
-  @Input()
   voyage: Voyage = {
-    id:"",
+    id: "",
     arrive: "",
     depart: "",
     date: Date.now(),
@@ -48,6 +45,8 @@ export class DetailVoitureComponent implements AfterViewInit {
   @Input()
   voyages: Array<Voyage> = [];
 
+  places: Array<Place> = [];
+
   constructor(private firebaseService: FirebaseService) { }
 
   ngAfterViewInit(): void {
@@ -57,6 +56,7 @@ export class DetailVoitureComponent implements AfterViewInit {
   reserverPlace(place: Place, voiture: Voiture) {
     if (place.libre) {
       place.libre = !place.libre;
+      this.places.push(place);
       /*
       if (this.voyage.id) {
         this.firebaseService.updateVoyage(this.voyage, this.voyage.id);
@@ -84,6 +84,13 @@ export class DetailVoitureComponent implements AfterViewInit {
       }
     });
     return placeReserver;
+  }
+
+  annulerReservation() {
+    this.places.forEach(p => {
+      p.libre = !p.libre
+    });
+    this.places = [];
   }
 
 }
