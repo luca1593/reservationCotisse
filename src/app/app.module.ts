@@ -11,7 +11,7 @@ import { LaoderComponent } from './components/laoder/laoder.component';
 import { CarComponent } from './components/car/car.component';
 import { DetailVoitureComponent } from './components/detail-voiture/detail-voiture.component';
 import { DetailVoyageComponent } from './components/detail-voyage/detail-voyage.component';
-import { registerLocaleData } from '@angular/common';
+import { DatePipe, registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { RouterModule, Routes } from '@angular/router';
 import { BoutonChaiseComponent } from './components/bouton-chaise/bouton-chaise.component';
@@ -58,6 +58,7 @@ const routes: Routes = [
     provideFirestore(() => getFirestore())
   ],
   providers: [
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

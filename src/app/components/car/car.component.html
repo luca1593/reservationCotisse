@@ -2,33 +2,33 @@
     <div class="col-4">
         <label for="depart" class="form-label">Départ</label>
         <select id="depart" name="depart" [(ngModel)]="depart" class="form-select form-select-sm"
-            aria-label="Small select example">
+            aria-label="Small select example" (change)="getAllVoyage()">
             <option value="">Sélectionnez le lieu de départ</option>
             <option value="Antananarivo">Antananarivo</option>
             <option value="Morondava">Morondava</option>
             <option value="Majunga">Majunga</option>
             <option value="Toliar">Toliar</option>
             <option value="Fianarantsoa">Fianarantsoa</option>
-            <option value="Anstirabe">Anstirabe</option>
+            <option value="Antsirabe">Antsirabe</option>
         </select>
     </div>
 
     <div class="col-4">
         <label for="arrive" class="form-label">Arrivé</label>
         <select id="arrive" name="arrive" [(ngModel)]="arrive" class="form-select form-select-sm"
-            aria-label="Small select example">
+            aria-label="Small select example" (change)="getAllVoyage()">
             <option value="">Sélectionnez le lieu d'arrivée</option>
             <option value="Antananarivo">Antananarivo</option>
             <option value="Morondava">Morondava</option>
             <option value="Majunga">Majunga</option>
             <option value="Toliar">Toliar</option>
             <option value="Fianarantsoa">Fianarantsoa</option>
-            <option value="Anstirabe">Anstirabe</option>
+            <option value="Antsirabe">Antsirabe</option>
         </select>
     </div>
 
     <div class="col-2">
-        <label for="datevoyage" class="form-label">Date du voyage</label>
+        <label for="datevoyage" class="form-label" (change)="getAllVoyage()">Date du voyage</label>
         <input type="date" class="form-control form-control-sm" id="datevoyage" name="date" [(ngModel)]="date"
             placeholder="Date du voyage">
     </div>

@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Client } from 'src/app/models/Client';
 import { Voyage } from 'src/app/models/Voyage';
@@ -49,10 +50,9 @@ export class CarComponent implements OnInit {
   arrive: string = "";
   date: number = Date.now();
 
-  constructor(private firebaseService: FirebaseService) { }
+  constructor(private firebaseService: FirebaseService, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
-    //this.initPlace();
     //this.initVoyage();
     this.getAllVoyage();
   }
@@ -71,6 +71,7 @@ export class CarComponent implements OnInit {
   }
 
   initVoyage() {
+    this.initPlace();
     let voyage: Voyage = {
       depart: "Antananarivo",
       arrive: "Morondava",
@@ -132,13 +133,15 @@ export class CarComponent implements OnInit {
 
   filterVoyage() {
     if (this.depart && this.arrive && this.date) {
-      this.voyages.forEach(v => {
-        if (v.depart != this.depart && v.arrive != this.arrive) {
-          console.log(this.voyages.lastIndexOf(v));
-          this.voyages.splice(this.voyages.lastIndexOf(v), 1);
-        }
+      this.voyages = this.voyages.filter(v => {
+        
+        return v.depart === this.depart && v.arrive === this.arrive &&  this.compareDate(v.date, this.date);
       });
     }
+  }
+
+  compareDate(d1: number, d2: number): boolean {
+    return this.datePipe.transform(d1, "dd/MM/yyyy") == this.datePipe.transform(d2, "dd/MM/yyyy");
   }
 
 }
