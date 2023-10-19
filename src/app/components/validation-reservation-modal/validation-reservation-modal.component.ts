@@ -4,6 +4,8 @@ import { Voyage } from 'src/app/models/Voyage';
 import { Place } from 'src/app/models/place';
 import { Voiture } from 'src/app/models/voiture';
 import { FirebaseService } from 'src/app/services/firebase/firebase.service';
+import { FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-validation-reservation-modal',
@@ -54,7 +56,9 @@ export class ValidationReservationModalComponent {
     nom: "",
     nombrePlace: this.places.length,
     numeroTel: ""
-  }
+  };
+
+  email = new FormControl('', [Validators.required, Validators.email]);
 
   constructor(private firebaseService: FirebaseService) { }
 

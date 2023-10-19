@@ -46,6 +46,7 @@ export class DetailVoitureComponent implements AfterViewInit {
   voyages: Array<Voyage> = [];
 
   places: Array<Place> = [];
+  $scope: any;
 
   constructor(private firebaseService: FirebaseService) { }
 
@@ -91,6 +92,10 @@ export class DetailVoitureComponent implements AfterViewInit {
       p.libre = !p.libre
     });
     this.places = [];
+  }
+
+  placeHover(event: any) {
+    event.target.click();
   }
 
 }

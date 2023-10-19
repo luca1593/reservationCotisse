@@ -52,28 +52,22 @@ export class CarComponent implements OnInit {
   constructor(private firebaseService: FirebaseService) { }
 
   ngOnInit(): void {
-    this.initPlace();
-    //this.reserverPlace();
+    //this.initPlace();
     //this.initVoyage();
     this.getAllVoyage();
-    this.getAllPlace();
   }
 
   initPlace(): void {
     this.voitures.forEach(v => {
       for (let i = 1; i <= v.chaise; i++) {
         let place: Place = {
-          libre: Math.floor(Math.random() * 100) % 2 === 1,
+          libre: true,
           numero: i,
           client: this.client
         };
         v.places.push(place);
       }
     });
-  }
-
-  reserverPlace(): void {
-    this.firebaseService.savePalace(this.places);
   }
 
   initVoyage() {
@@ -137,37 +131,14 @@ export class CarComponent implements OnInit {
   }
 
   filterVoyage() {
-    this.getAllVoyage();
     if (this.depart && this.arrive && this.date) {
-      this.voyages = this.voyages.filter(item => item.date === this.date && item.arrive === this.arrive && item.depart === this.depart);
-    }
-    console.log(this.voyages);
-  }
-
-  async getAllPlace() {
-
-    this.firebaseService.getAllPlace().then(data => {
-      data.docs.sort((a, b) => (a.get("idVoiture") - b.get("idVoiture"))).sort((a, b) => (b.get("numero") - a.get("numero"))).forEach(d => {
-        this.voitures.forEach(v => {
-          let place: Place = {
-            libre: d.get("libre"),
-            numero: d.get("numero"),
-            client: this.client
-          }
-          if (d.get("idVoiture") === v.id) {
-            if (this.mapPlaces.get(v.id)) {
-              this.mapPlaces.get(v.id)?.push(place);
-            } else {
-              let pls: Array<Place> = [];
-              pls.push(place)
-              this.mapPlaces.set(v.id, pls);
-            }
-          }
-        })
+      this.voyages.forEach(v => {
+        if (v.depart != this.depart && v.arrive != this.arrive) {
+          console.log(this.voyages.lastIndexOf(v));
+          this.voyages.splice(this.voyages.lastIndexOf(v), 1);
+        }
       });
-    }).catch((error) => {
-      console.log("Erreur de chargements");
-    });
+    }
   }
 
 }
