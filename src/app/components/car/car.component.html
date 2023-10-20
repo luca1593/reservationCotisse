@@ -27,16 +27,10 @@
         </select>
     </div>
 
-    <div class="col-2">
-        <label for="datevoyage" class="form-label" (change)="getAllVoyage()">Date du voyage</label>
-        <input type="date" class="form-control form-control-sm" id="datevoyage" name="date" [(ngModel)]="date"
-            placeholder="Date du voyage">
-    </div>
-    <div class="col-2 pt-4">
-        <span class="form-label"></span>
-        <button type="button" class="btn btn-success" (click)="filterVoyage()">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
+    <div class="col-4">
+        <label for="datevoyage" class="form-label">Date du voyage</label>
+        <input type="date" class="form-control form-control-sm" id="datevoyage" (change)="getAllVoyage()" name="date"
+            [ngModel]="date | date:'yyyy-MM-dd'" (ngModelChange)="date = $event" placeholder="Date du voyage">
     </div>
 </div>
 <div class="row mx-3 mt-2">

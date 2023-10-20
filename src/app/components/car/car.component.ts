@@ -125,6 +125,7 @@ export class CarComponent implements OnInit {
           voyage.voitures.push(v);
         });
         this.voyages.push(voyage);
+        this.filterVoyage();
       });
     }).catch((error) => {
       console.log("Erreur de chargements");
@@ -134,8 +135,7 @@ export class CarComponent implements OnInit {
   filterVoyage() {
     if (this.depart && this.arrive && this.date) {
       this.voyages = this.voyages.filter(v => {
-        
-        return v.depart === this.depart && v.arrive === this.arrive &&  this.compareDate(v.date, this.date);
+        return v.depart === this.depart && v.arrive === this.arrive && this.compareDate(v.date, this.date);
       });
     }
   }
