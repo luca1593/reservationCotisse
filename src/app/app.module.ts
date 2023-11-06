@@ -20,6 +20,7 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ValidationReservationModalComponent } from './components/validation-reservation-modal/validation-reservation-modal.component';
+import { ListClientComponent } from './pages/client/list-client/list-client.component';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -29,6 +30,9 @@ const routes: Routes = [
     children: [
       {
         path: 'reservation', component: CarComponent
+      },
+      {
+        path: 'list-client', component: ListClientComponent
       }
     ]
   }
@@ -46,7 +50,8 @@ const routes: Routes = [
     DetailVoitureComponent,
     DetailVoyageComponent,
     BoutonChaiseComponent,
-    ValidationReservationModalComponent
+    ValidationReservationModalComponent,
+    ListClientComponent
   ],
   imports: [
     BrowserModule,

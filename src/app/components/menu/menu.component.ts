@@ -31,18 +31,38 @@ export class MenuComponent implements OnInit {
     },
     {
       id: '2',
-      titre: 'Voitures',
+      titre: 'Clients',
       icon: 'fa-solid fa-boxes-stacked',
       url: '',
       sousMenus: [
         {
           id: '21',
+          titre: 'Nouveau',
+          icon: 'fa-solid fa-cubes-stacked',
+          url: 'nouveau-client'
+        },
+        {
+          id: '22',
+          titre: 'List',
+          icon: 'fa-solid fa-dolly',
+          url: 'list-client'
+        }
+      ]
+    },
+    {
+      id: '3',
+      titre: 'Voitures',
+      icon: 'fa-solid fa-boxes-stacked',
+      url: '',
+      sousMenus: [
+        {
+          id: '31',
           titre: 'Voiture',
           icon: 'fa-solid fa-cubes-stacked',
           url: 'articles'
         },
         {
-          id: '22',
+          id: '32',
           titre: 'Maintenance',
           icon: 'fa-solid fa-dolly',
           url: 'mvtstk'
@@ -50,19 +70,19 @@ export class MenuComponent implements OnInit {
       ]
     },
     {
-      id: '3',
+      id: '4',
       titre: 'Reservations',
       icon: 'fa-solid fa-users-line',
       url: '',
       sousMenus: [
         {
-          id: '31',
+          id: '41',
           titre: 'Nouveau',
           icon: 'fa-solid fa-users',
           url: 'clients'
         },
         {
-          id: '32',
+          id: '42',
           titre: 'Details',
           icon: 'fa-solid fa-basket-shopping',
           url: 'reservation'
